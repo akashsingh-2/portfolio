@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akash Singh — Staff Product Designer</title>
+<style>
+  :root{
+    --bg:#FBFBFD;
+    --bg-alt:#F5F5F7;
+    --ink:#1D1D1F;
+    --ink-soft:#6E6E73;
+    --line:rgba(0,0,0,0.08);
+    --accent:#0071E3;
+    --accent-soft:#E8F1FD;
+    --dark:#0B0B0D;
+    --dark-ink:#F5F5F7;
+    --dark-ink-soft:#A1A1A6;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --maxw:1120px;
+    --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-serif: ui-serif, "New York", Georgia, "Iowan Old Style", Cambria, "Times New Roman", serif;
+    --signature:#9C7A32;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-text);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+
+  /* NAV */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    background:rgba(251,251,253,0.8);
+    border-bottom:1px solid var(--line);
+    transform:translateY(-100%);
+    transition:transform .35s ease;
+  }
+  .nav.nav-visible{transform:translateY(0);}
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:0 24px;
+    height:52px; display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-brand{display:flex; align-items:center; gap:9px; font-size:14px; font-weight:600; letter-spacing:-0.01em; text-decoration:none;}
+  .nav-mark{
+    width:26px; height:26px; border-radius:100%;
+    background:var(--ink); color:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-serif); font-size:13px; font-style:italic;
+  }
+  .nav-links{display:flex; align-items:center; gap:28px; list-style:none; margin:0; padding:0;}
+  .nav-links a{font-size:12.5px; color:var(--ink); text-decoration:none; opacity:0.85; transition:opacity .2s ease;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    font-size:12.5px; font-weight:600; text-decoration:none; color:var(--ink);
+    display:inline-flex; align-items:center; gap:5px;
+    padding-bottom:1px; border-bottom:1px solid var(--ink);
+  }
+  .nav-links a:focus-visible, .nav-brand:focus-visible, .nav-cta:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    Padding:0 0 0;
+    min-height:640px;
+    display:flex;
+    align-items:stretch;
+  }
+  .hero-shell{
+    position:relative;
+    width:100%;
+    display:flex;
+    align-items:center;
+  }
+  .hero-side-label{
+    position:absolute; left:0; top:120px;
+    writing-mode:vertical-rl; transform:rotate(180deg);
+    font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .hero-main{
+    position:relative; z-index:2;
+    max-width:560px;
+    padding:64px 0 72px 34px;
+  }
+  .eyebrow{
+    font-size:13px; font-weight:600; color:var(--ink-soft);
+    text-transform:uppercase; letter-spacing:0.07em; margin-bottom:16px;
+  }
+  .hero-greeting{
+    font-family:var(--font-serif);
+    font-size:clamp(64px, 9vw, 118px);
+    line-height:0.92;
+    font-weight:500;
+    letter-spacing:-0.02em;
+    margin:0 0 22px;
+  }
+  .hero-intro{
+    font-size:16.5px;
+    color:var(--ink-soft);
+    max-width:440px;
+    margin:0 0 30px;
+    line-height:1.6;
+  }
+  .hero-intro strong{color:var(--ink); font-weight:650;}
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:52px;}
+  .scroll-cue{
+    display:flex; align-items:center; gap:6px;
+    font-size:12px; color:var(--ink-soft); letter-spacing:0.02em;
+  }
+  .scroll-cue .arrow{display:inline-block; animation:bob 2s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);} 50%{transform:translateY(4px);}}
+
+  .hero-portrait{
+    position:absolute; top:0; right:0; bottom:0;
+    width:44%;
+    min-width:340px;
+  }
+  .portrait-frame{
+    position:absolute; inset:0;
+    background:linear-gradient(155deg,#3A3A3C 0%, #1C1C1E 60%, #0B0B0D 100%);
+    display:flex; align-items:center; justify-content:center;
+  }
+  /* Replace .portrait-frame background/content with: <img src="your-headshot.jpg" alt="Akash Singh" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%);"> */
+  .portrait-frame .initials{
+    font-family:var(--font-serif); font-size:96px; font-style:italic;
+    color:rgba(255,255,255,0.9);
+  }
+  .portrait-fade{
+    position:absolute; left:0; top:0; bottom:0; width:120px;
+    background:linear-gradient(90deg, var(--bg) 0%, rgba(251,251,253,0) 100%);
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:12px 22px; border-radius:980px;
+    font-size:15px; font-weight:500; text-decoration:none;
+    transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
+  }
+  .btn-primary{background:var(--accent); color:#fff;}
+  .btn-primary:hover{background:#0077ED; transform:translateY(-1px); box-shadow:0 8px 20px rgba(0,113,227,0.28);}
+  .btn-secondary{background:var(--bg-alt); color:var(--ink); border:1px solid var(--line);}
+  .btn-secondary:hover{background:#ECECEE; transform:translateY(-1px);}
+  .btn:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  /* CREDIBILITY STRIP */
+  .logo-strip{
+    border-top:1px solid var(--line);
+    padding:26px 0;
+  }
+  .logo-strip-inner{
+    display:flex; align-items:center; justify-content:center; gap:36px;
+    flex-wrap:wrap;
+  }
+  .logo-strip-label{font-size:12px; color:var(--ink-soft); letter-spacing:0.02em; margin-right:4px;}
+  .logo-strip-inner span.company{
+    font-size:14px; font-weight:600; color:var(--ink-soft); letter-spacing:-0.01em;
+    opacity:0.75;
+  }
+
+  /* ABOUT ME — editorial section */
+  .about-editorial{padding:100px 0;}
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:64px;
+    align-items:start;
+  }
+  .about-photo{
+    position:sticky;
+    top:80px;
+    border-radius:8px;
+    overflow:hidden;
+    aspect-ratio:3/4;
+    background:var(--bg-alt);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:none;
+  }
+  /* Replace .about-photo background/content with: <img src="your-photo.jpg" alt="Akash Singh" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%);"> */
+  .about-photo .initials{
+    font-family:var(--font-serif); font-size:64px; font-style:italic; color:rgba(255,255,255,0.9);
+  }
+  .about-copy .eyebrow{margin-bottom:10px;}
+  .about-copy h2{
+    font-family:var(--font-serif);
+    font-size:clamp(48px, 6vw, 76px);
+    line-height:0.98;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    margin:0 0 20px;
+  }
+  .about-signature-rule{width:56px; height:2px; background:var(--signature); margin:0 0 24px;}
+  .about-lead{font-size:18px; line-height:1.6; color:var(--ink); margin:0 0 18px; font-weight:500;}
+  .about-lead strong{font-weight:650;}
+  .about-copy p{font-size:16px; line-height:1.75; color:var(--ink-soft); margin:0 0 16px;}
+  .about-copy p strong{color:var(--ink); font-weight:650;}
+  .about-focus{
+    margin:28px 0 26px;
+  }
+  .about-focus-label{
+    font-size:11.5px; font-weight:600; letter-spacing:0.09em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:14px;
+  }
+  .focus-list{display:flex; flex-direction:column; gap:12px;}
+  .focus-item{display:flex; align-items:flex-start; gap:12px;}
+  .focus-item .dot-mark{
+    width:6px; height:6px; border-radius:50%; background:var(--signature);
+    margin-top:8px; flex-shrink:0;
+  }
+  .focus-item .focus-text{font-size:15px; line-height:1.55; color:var(--ink-soft);}
+  .focus-item .focus-text b{color:var(--ink); font-weight:650;}
+  .about-signature{
+    display:flex; align-items:center; gap:12px;
+    padding-top:26px; margin-top:8px; border-top:1px solid var(--line);
+  }
+  .about-signature .sig-mark{
+    font-family:var(--font-serif); font-style:italic; font-size:30px;
+    color:var(--ink); line-height:1;
+  }
+  .about-signature .sig-meta{display:flex; flex-direction:column;}
+  .about-signature .sig-name{font-size:14px; font-weight:650; letter-spacing:-0.01em;}
+  .about-signature .sig-role{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+
+  /* Section shell */
+  .section{padding:96px 0;}
+  .section.alt{background:var(--bg-alt);}
+  .section-head{max-width:640px; margin:0 auto 56px; text-align:center;}
+  .section-head .eyebrow{margin-bottom:12px;}
+  .section-head h2{
+    font-family:var(--font-display);
+    font-size:clamp(28px,3.6vw,42px);
+    font-weight:650; letter-spacing:-0.015em; margin:0 0 14px;
+  }
+  .section-head p{color:var(--ink-soft); font-size:17px; line-height:1.6; margin:0;}
+
+  /* PROJECT CARD */
+  .project{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+    padding:56px 0;
+    opacity:0; transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .project.visible{opacity:1; transform:translateY(0);}
+  .project:not(:last-child){border-bottom:1px solid var(--line);}
+  .project.reverse{grid-template-columns:0.95fr 1.05fr;}
+  .project.reverse .project-media{order:2;}
+  .project.reverse .project-copy{order:1;}
+
+  .project-media{
+    position:relative;
+    border-radius:8px;
+    overflow:hidden;
+    background:var(--bg-alt);
+    box-shadow:none;
+    display:flex;
+    align-items:center;
+  }
+  .project-media img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+  .figma-badge{
+    position:absolute; bottom:12px; right:12px; z-index:3;
+    width:34px; height:34px; border-radius:50%;
+    background:#fff; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    padding:0px; box-shadow:none;
+  }
+  .figma-badge img{width:100%; height:100%; object-fit:contain; display:block;}
+  .placeholder-screen{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:10px; padding:24px;
+    color:rgba(255,255,255,0.92);
+  }
+  .placeholder-screen .ph-icon{
+    width:44px; height:44px; border-radius:12px;
+    background:rgba(255,255,255,0.18);
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(255,255,255,0.35);
+  }
+  .placeholder-screen .ph-icon svg{width:20px; height:20px;}
+  .placeholder-screen .ph-label{font-size:13px; font-weight:600; letter-spacing:-0.01em;}
+  .placeholder-screen .ph-sub{font-size:12px; color:rgba(255,255,255,0.72); max-width:220px; line-height:1.5;}
+
+  .p1 .placeholder-screen{background:linear-gradient(140deg,#1B5FE0 0%,#5C8CF2 45%, #0B2A6B 100%);}
+  .p2 .placeholder-screen{background:linear-gradient(140deg,#0E7C66 0%,#3FBF9B 45%, #063C33 100%);}
+  .p3 .placeholder-screen{background:linear-gradient(140deg,#7B3FE4 0%,#B98CF5 45%, #2E0E63 100%);}
+
+  .project-copy .kicker{
+    font-size:12.5px; font-weight:600; color:var(--ink-soft);
+    text-transform:uppercase; letter-spacing:0.07em; margin-bottom:10px;
+  }
+  .project-copy h3{
+    font-family:var(--font-display);
+    font-size:clamp(24px,3vw,32px); font-weight:650; letter-spacing:-0.015em;
+    margin:0 0 14px;
+  }
+  .project-copy p{font-size:16px; line-height:1.65; color:var(--ink-soft); margin:0 0 20px;}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px;}
+  .tag{
+    font-size:12px; font-weight:500; padding:5px 12px; border-radius:980px;
+    background:var(--bg-alt); border:1px solid var(--line); color:var(--ink);
+  }
+  .case-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:16px; font-weight:500; color:var(--accent); text-decoration:none;
+  }
+  .case-link svg{width:14px; height:14px; transition:transform .2s ease;}
+  .case-link:hover svg{transform:translateX(3px);}
+  .case-link:focus-visible{outline:2px solid var(--accent); outline-offset:4px; border-radius:4px;}
+
+  /* STATS / ABOUT — dark section */
+  .dark-section{
+    background:var(--dark); color:var(--dark-ink); padding:100px 0;
+  }
+  .dark-section .section-head h2{color:var(--dark-ink);}
+  .dark-section .section-head p{color:var(--dark-ink-soft);}
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:32px;
+    margin-top:8px;
+  }
+  .stat{text-align:center; padding:0 8px;}
+  .stat .num{
+    font-family:var(--font-display); font-size:clamp(30px,4vw,44px);
+    font-weight:650; letter-spacing:-0.02em; color:#fff; margin-bottom:6px;
+  }
+  .stat .label{font-size:13px; color:var(--dark-ink-soft); line-height:1.4;}
+
+  /* FOOTER */
+  footer{padding:64px 0 40px; border-top:1px solid var(--line);}
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+  }
+  .footer-copy{font-size:13px; color:var(--ink-soft);}
+  .footer-links{display:flex; gap:22px; list-style:none; margin:0; padding:0;}
+  .footer-links a{font-size:13px; text-decoration:none; color:var(--ink-soft); transition:color .2s ease;}
+  .footer-links a:hover{color:var(--accent);}
+
+  @media (max-width:860px){
+    .project, .project.reverse{grid-template-columns:1fr; gap:28px;}
+    .project.reverse .project-media, .project.reverse .project-copy{order:initial;}
+    .stats-grid{grid-template-columns:repeat(2,1fr); row-gap:36px;}
+    .nav-links{display:none;}
+    .hero{min-height:0;}
+    .hero-side-label{display:none;}
+    .hero-main{max-width:100%; padding:40px 0 36px 0; text-align:center;}
+    .hero-stats{justify-content:center;}
+    .hero-intro{margin-left:auto; margin-right:auto;}
+    .hero-ctas{justify-content:center; margin-bottom:36px;}
+    .hero-portrait{
+      position:relative; inset:auto; width:100%; height:477px;
+      margin-top:0px;
+    }
+    .portrait-fade{display:none;}
+    .about-grid{grid-template-columns:1fr; gap:32px;}
+    .about-photo{position:relative; top:auto; max-width:320px; margin:0 auto; aspect-ratio:1/1;}
+    .about-copy{text-align:left;}
+    .about-signature-rule{margin-left:0;}
+    .about-focus-label{text-align:left;}
+    .logo-strip-inner{gap:20px 28px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .project{transition:none; opacity:1; transform:none;}
+    .btn, .case-link svg{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#top"><span class="nav-mark"><img src="images/Akash_Singh.jpg" alt="Akash Singh" class="nav-mark" style="object-fit: cover;"></span>Akash Singh</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="nav-cta" href="https://linkedin.com/in/akash02" target="_blank" rel="noopener">Let's talk ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-shell">
+    <div class="hero-side-label">Staff Product Designer</div>
+    <div class="hero-main">
+      <h1 class="hero-greeting">Hello.</h1>
+      <p class="hero-intro">— I'm <strong>Akash</strong>, a Staff Product Designer who builds trust into enterprise software.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#work">View selected work</a>
+        <a class="btn btn-secondary" href="https://linkedin.com/in/akash02" target="_blank" rel="noopener">Connect on LinkedIn</a>
+      </div>
+      <div class="scroll-cue">Scroll down <span class="arrow">↓</span></div>
+    </div>
+  </div>
+  
+<div class="hero-portrait">
+  <div class="portrait-fade"></div>
+  <img 
+    src="images/headshot.jpeg" 
+    alt="Akash Singh" 
+    style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%);"
+  >
+</div>
+
+</header>
+
+<div class="logo-strip">
+  <div class="wrap logo-strip-inner">
+    <span class="logo-strip-label">Enterprise SaaS experience across</span>
+    <span class="company">Diligent</span>
+    <span class="company">Citrix</span>
+    <span class="company">HID Global</span>
+    <span class="company">Cisco</span>
+    <span class="company">INSZoom</span>
+  </div>
+</div>
+
+<main>
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Selected work</div>
+        <h2>Three systems. Three industries.<br>One way of working.</h2>
+        <p>Each project below links to a full case study. Swap the placeholder screens for real product shots whenever you're ready.</p>
+      </div>
+
+      <!-- PROJECT 1: Toolkit Builder -->
+<article class="project p1">
+  <div class="project-media">
+    <img 
+      src="images/TB_Home_Day-N.jpg" 
+      alt="Toolkit Builder interface" 
+      style="width: 100%; height: auto;"
+    >
+    <!-- Figma badge — swap src if you use a different icon file -->
+    <div class="figma-badge"><img src="images/figma_logo_icon.webp" alt="Designed in Figma"></div>
+  </div>
+  <div class="project-copy">
+    <div class="kicker">Diligent · Governance, Risk &amp; Compliance</div>
+    <h3>Toolkit Builder</h3>
+    <p>Designed from the ground up as a way for customers to assemble their own governance toolkits — now contributing to a $2M+ sales pipeline across 16 opportunities, with 1,483 toolkits installed by 448 active customers.</p>
+    <div class="tag-row">
+      <span class="tag">0→1 design</span>
+      <span class="tag">Design systems</span>
+      <span class="tag">Enterprise SaaS</span>
+    </div>
+    <a class="case-link" href="toolkit-builder.html">
+      View case study
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</article>
+
+      <!-- PROJECT 2: Citrix ITM/ADM -->
+<article class="project p2 reverse">
+  <div class="project-media">
+    <img 
+      src="images/Citrix_NEW_ADM_Dashboard_HD.gif" 
+      alt="ITM / ADM dashboard" 
+      style="width: 100%; height: auto;"
+    >
+    <div class="figma-badge"><img src="images/figma_logo_icon.webp" alt="Designed in Figma"></div>
+  </div>
+  <div class="project-copy">
+    <div class="kicker">Citrix · Application Delivery &amp; Networking</div>
+    <h3>ITM &amp; ADM Design System</h3>
+    <p>Extended and maintained the component system behind Citrix's application delivery and networking tools, helping drive 57% adoption among new ADM customers and lifting retention from 80% to 95%.</p>
+    <div class="tag-row">
+      <span class="tag">Design systems</span>
+      <span class="tag">Component libraries</span>
+      <span class="tag">Networking &amp; infra</span>
+    </div>
+    <a class="case-link" href="citrix-itm-adm.html">
+      View case study
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</article>
+
+      <!-- PROJECT 3: HID SAFE Visitor Management -->
+<article class="project p3">
+  <div class="project-media">
+    <img 
+      src="images/HID_Visitor_Management_System.png" 
+      alt="HID SAFE visitor kiosk" 
+      style="width: 100%; height: auto;"
+    >
+    <div class="figma-badge"><img src="images/UXPin_logo.png" alt="Designed in Figma" style="border-radius: 0 !important; width: 50px !important; height: auto !important;" alt="Designed in Figma"></div>
+  </div>
+  <div class="project-copy">
+    <div class="kicker">HID Global · Physical Security &amp; Identity</div>
+    <h3>HID SAFE Visitor Management</h3>
+    <p>Redesigned a touchless kiosk experience for visitor check-in across corporate campuses, airports, and hospitals — kicked off with a Phase 1 workshop I led on-site in Fremont, California.</p>
+    <div class="tag-row">
+      <span class="tag">Kiosk &amp; touchless UX</span>
+      <span class="tag">Workshop facilitation</span>
+      <span class="tag">Cross-industry</span>
+    </div>
+    <a class="case-link" href="https://preview.uxpin.com/83419b7cff2a3087cebda5106b81646488c37650#/pages/137101283/simulate/no-panels?mode=if&zoom=fit-to-width">
+      View case study
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</article>
+    </div>
+  </section>
+
+  <section class="section about-editorial" id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo">
+      <img 
+        src="images/IMG_6209.png" 
+        alt="Akash Singh" 
+        style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%);"
+      >
+    </div>
+    <div class="about-copy">
+      <div class="eyebrow">About</div>
+      <h2>About<br>me.</h2>
+      <div class="about-signature-rule"></div>
+        <p class="about-lead">I'm <strong>Akash Singh</strong>, a Staff Product Designer based in Bengaluru — I design the enterprise software teams reach for when the work is complex and the margin for error is thin.</p>
+
+        <p>For over a decade I've worked inside the high-stakes corners of B2B SaaS: governance and compliance at <strong>Diligent</strong>, application delivery and networking at <strong>Citrix</strong>, physical access and identity at <strong>HID Global</strong>, and security infrastructure at <strong>Cisco</strong> and <strong>INSZoom</strong>. Different industries, one constant — dense, technical products that real businesses depend on every day.</p>
+
+        <p>My work tends to sit where design meets systems. I designed Diligent's Toolkit Builder from a blank canvas into a product that now underpins a $2M+ sales pipeline; I directed the Community platform's modernisation, aligning it to the existing Atlas design system; and I led the accessibility uplift from WCAG 2.1 AA all the way to 2.2 AAA. I care as much about the component that scales quietly across a hundred screens as I do about the hero flow everyone sees.</p>
+
+        <p>Beyond shipping, I mentor — informally coaching up to eight mid-to-senior designers — because a Staff role isn't just about your own output; it's about raising the ceiling for the people around you.</p>
+
+        <div class="about-focus">
+          <div class="about-focus-label">What I bring to a Staff role</div>
+          <div class="focus-list">
+            <div class="focus-item">
+              <span class="dot-mark"></span>
+              <span class="focus-text"><b>Systems thinking at scale</b> — design systems, component libraries, and accessibility standards that hold up across whole product suites.</span>
+            </div>
+            <div class="focus-item">
+              <span class="dot-mark"></span>
+              <span class="focus-text"><b>0→1 product design</b> — taking ambiguous, undefined problems from first sketch to shipped, revenue-generating product.</span>
+            </div>
+            <div class="focus-item">
+              <span class="dot-mark"></span>
+              <span class="focus-text"><b>Cross-functional influence</b> — partnering with product, engineering, and sales to move adoption and retention, not just ship screens.</span>
+            </div>
+            <div class="focus-item">
+              <span class="dot-mark"></span>
+              <span class="focus-text"><b>Craft &amp; mentorship</b> — high personal quality bar, paired with lifting the designers around me.</span>
+            </div>
+          </div>
+        </div>
+
+        <p>I'm currently exploring my next Staff, Senior Staff, or Lead Product Design role — ideally somewhere the problems are hard, the users are demanding, and the stakes are worth designing carefully for.</p>
+
+        <div class="about-signature">
+          <span class="sig-mark">AS</span>
+          <span class="sig-meta">
+            <span class="sig-name">Akash Singh</span>
+            <span class="sig-role">Staff Product Designer · Bengaluru, India</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark-section" id="impact">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">By the numbers</div>
+        <h2>Fourteen years of impact,<br>measured in outcomes.</h2>
+        <p>Governance, security, and networking software for the teams who can't afford to get it wrong.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat"><div class="num">$2M+</div><div class="label">Sales pipeline influenced by Toolkit Builder</div></div>
+        <div class="stat"><div class="num">448</div><div class="label">Active customers using a system I designed</div></div>
+        <div class="stat"><div class="num">57%</div><div class="label">New customer adoption driven at Citrix</div></div>
+        <div class="stat"><div class="num">AAA</div><div class="label">WCAG 2.2 accessibility uplift directed</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap footer-inner">
+    <div class="footer-copy">© 2026 Akash Singh. Built for the next conversation.</div>
+    <ul class="footer-links">
+      <li><a href="https://linkedin.com/in/akash02" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="#top">Back to top</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Reveal the nav bar only after the user scrolls down past the hero fold
+  const nav = document.querySelector('.nav');
+  const revealAt = 120;
+  const onScroll = () => {
+    if (window.scrollY > revealAt) nav.classList.add('nav-visible');
+    else nav.classList.remove('nav-visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const projects = document.querySelectorAll('.project');
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.2});
+    projects.forEach(p=>io.observe(p));
+  } else {
+    projects.forEach(p=>p.classList.add('visible'));
+  }
+</script>
+
+</body>
+</html>
